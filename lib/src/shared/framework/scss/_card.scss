@@ -1,15 +1,7 @@
 @import 'package:angular_components/css/material/material';
 
-:host {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.mdc-card.size {
-  width: 80%;
-  align-self: flex-start;
+.size {
+  width: $mat-grid * 44;
 }
 
 .card__media {
@@ -35,6 +27,8 @@
 .card__secondary {
   @include mat-font-body;
   padding: 0 $mat-grid * 2 $mat-grid;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   font-size: 14px;
 }

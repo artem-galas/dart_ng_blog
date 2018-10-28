@@ -1,0 +1,12 @@
+@import 'package:ng_blog/src/shared/framework/scss/card';
+
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.full-width {
+  display: block;
+  width: 100%;
+}

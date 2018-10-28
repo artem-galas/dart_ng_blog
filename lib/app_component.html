@@ -1,31 +1,70 @@
-<h1>My First AngularDart App</h1>
+<material-drawer persistent #drawer="drawer">
+  <material-list *deferredContent>
+    <div group class="mat-drawer-spacer"></div>
+    <div group>
+      <material-list-item [routerLink]="RoutePaths.home.toUrl()">
+        <material-icon icon="home"></material-icon>Home
+      </material-list-item>
+    </div>
+    <div group>
+      <div label>Posts</div>
+      <material-list-item [routerLink]="RoutePaths.posts_index.toUrl()">
+        <material-icon icon="dashboard"></material-icon>All Posts
+      </material-list-item>
+      <material-list-item [routerLink]="RoutePaths.posts_create.toUrl()">
+        <material-icon icon="playlist_add"></material-icon>Create a new Post
+      </material-list-item>
+    </div>
+    <div group>
+      <div label>Auth</div>
+      <material-list-item [routerLink]="RoutePaths.auth_sign_in.toUrl()">
+        <material-icon icon="person"></material-icon>Sign In
+      </material-list-item>
+      <material-list-item [routerLink]="RoutePaths.auth_sign_up.toUrl()">
+        <material-icon icon="person"></material-icon>Sign Up
+      </material-list-item>
+    </div>
 
-<ul>
-  <li><a [routerLink]="RoutePaths.home.toUrl()">Home</a></li>
-  <li>
-    Auth
-    <ul>
-      <li><a [routerLink]="RoutePaths.auth_sign_in.toUrl()">Auth Sign In</a></li>
-      <li><a [routerLink]="RoutePaths.auth_sign_up.toUrl()">Auth Sign Up</a></li>
-    </ul>
-  </li>
-  <li>
-    Posts
-    <ul>
-      <li><a [routerLink]="RoutePaths.posts_index.toUrl()">Post Index</a></li>
-      <li><a [routerLink]="RoutePaths.posts_overview.toUrl()">Post Overview</a></li>
-      <li><a [routerLink]="RoutePaths.posts_detail.toUrl()">Post Detail</a></li>
-    </ul>
-  </li>
-  <li>
-    Profile
-    <ul>
-      <li><a [routerLink]="RoutePaths.profile.toUrl()">Profile</a></li>
-    </ul>
-  </li>
-  <li>
-    <a routerLink="not_found_url">Not Found</a>
-  </li>
-</ul>
+    <div group>
+      <div label>Profile</div>
+      <material-list-item [routerLink]="RoutePaths.profile.toUrl()">
+        <material-icon icon="account_box"></material-icon>Profile
+      </material-list-item>
+    </div>
+  </material-list>
+</material-drawer>
 
-<router-outlet [routes]="Routes.all"></router-outlet>
+<div class="material-content page-wrap">
+  <header class="material-header shadow">
+    <div class="material-header-row">
+      <material-button icon class="material-drawer-button" (trigger)="drawer.toggle()">
+        <material-icon icon="menu"></material-icon>
+      </material-button>
+      <span class="material-header-title">Ng Blog</span>
+      <div class="material-spacer"></div>
+      <div class="profile pointer" [routerLink]="RoutePaths.profile.toUrl()">
+        <p>Hello user</p>
+      </div>
+      <nav class="material-navigation">
+        <material-icon class="pointer" icon="exit_to_app"></material-icon>
+      </nav>
+    </div>
+  </header>
+  <material-content>
+    <router-outlet [routes]="Routes.all"></router-outlet>
+  </material-content>
+  <footer class="footer">
+    <div class="footer-list">
+      <div class="footer-logo">
+        <div class="footer-logo">
+          <img alt="dart" class="footer-dart-logo" src="/assets/img/dart-logo.png">
+          <span><a href="https://www.dartlang.org/">Learn Dart</a></span>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <span>Created By <a href="https://github.com/artem-galas">Artem Galas</a></span>
+        <span>Code licensed under an MIT-style License.</span>
+      </div>
+    </div>
+  </footer>
+</div>

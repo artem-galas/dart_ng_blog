@@ -1,1 +1,36 @@
-<p>post detail component works</p>
+<div class="mdc-card size">
+  <div class="card__media">
+    <img src="https://via.placeholder.com/150">
+    <input type="file" id="image" [hidden]="true">
+    <div class="upload_icon">
+      <label for="image">
+        Upload new image
+        <material-icon icon="cloud_upload" light baseline></material-icon>
+      </label>
+    </div>
+  </div>
+  <form>
+    <div class="card__primary">
+      <h2 class="card__title">
+        <material-input class="full-width"
+                        label="Title"
+                        ngDefaultControl>
+        </material-input>
+      </h2>
+    </div>
+    <div class="card__secondary">
+      <material-input class="full-width"
+                      multiline
+                      rows="10"
+                      type="text"
+                      label="Body"
+                      ngDefaultControl>
+      </material-input>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <material-button>Save</material-button>
+      </div>
+    </div>
+  </form>
+</div>

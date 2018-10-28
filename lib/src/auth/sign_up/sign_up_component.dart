@@ -1,8 +1,20 @@
 import 'package:angular/angular.dart';
 
+import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_input/material_input.dart';
+
 @Component(
   selector: 'ng-blog-sign-up',
-  styleUrls: ['sign_up_component.css'],
-  templateUrl: 'sign_up_component.html'
+  styleUrls: [
+    'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
+    'sign_up_component.css'
+  ],
+  templateUrl: 'sign_up_component.html',
+  directives: [
+    MaterialButtonComponent,
+    MaterialInputComponent,
+    MaterialIconComponent
+  ]
 )
 class SignUpComponent {}

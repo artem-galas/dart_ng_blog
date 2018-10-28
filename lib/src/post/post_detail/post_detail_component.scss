@@ -1,0 +1,59 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_icon/mixins';
+
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.full-width {
+  display: block;
+  width: 100%;
+}
+
+.mdc-card.size {
+  width: 80%;
+  align-self: flex-start;
+}
+
+.card__media {
+  text-align: center;
+  img {
+    width: 100%;
+  }
+}
+
+.card__title {
+  @include mat-font-title;
+  margin: 0;
+}
+
+.card__subtitle {
+  @include mat-font-subhead;
+  margin: 0;
+}
+
+.card__primary {
+  padding: $mat-grid * 2;
+}
+
+.card__secondary {
+  @include mat-font-body;
+  padding: 0 $mat-grid * 2 $mat-grid;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+
+.upload_icon {
+  display: block;
+  text-align: center;
+  label {
+    cursor: pointer;
+  }
+  material-icon {
+    margin-left: 10px;
+    @include material-icon-size(40px);
+  }
+}

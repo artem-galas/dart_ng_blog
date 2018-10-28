@@ -1,0 +1,36 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_tab/mixins';
+
+@import 'package:ng_blog/src/shared/framework/scss/card';
+
+:host {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+  margin-top: 40px;
+}
+
+.card__secondary {
+  label {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    span {
+      font-weight: normal;
+    }
+  }
+}
+
+section.posts-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  mdc-card {
+    margin-top: 25px;
+    margin-right: 25px;
+  }
+}
