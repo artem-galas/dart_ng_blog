@@ -1,1 +1,31 @@
 <h1>My First AngularDart App</h1>
+
+<ul>
+  <li><a [routerLink]="RoutePaths.home.toUrl()">Home</a></li>
+  <li>
+    Auth
+    <ul>
+      <li><a [routerLink]="RoutePaths.auth_sign_in.toUrl()">Auth Sign In</a></li>
+      <li><a [routerLink]="RoutePaths.auth_sign_up.toUrl()">Auth Sign Up</a></li>
+    </ul>
+  </li>
+  <li>
+    Posts
+    <ul>
+      <li><a [routerLink]="RoutePaths.posts_index.toUrl()">Post Index</a></li>
+      <li><a [routerLink]="RoutePaths.posts_overview.toUrl()">Post Overview</a></li>
+      <li><a [routerLink]="RoutePaths.posts_detail.toUrl()">Post Detail</a></li>
+    </ul>
+  </li>
+  <li>
+    Profile
+    <ul>
+      <li><a [routerLink]="RoutePaths.profile.toUrl()">Profile</a></li>
+    </ul>
+  </li>
+  <li>
+    <a routerLink="not_found_url">Not Found</a>
+  </li>
+</ul>
+
+<router-outlet [routes]="Routes.all"></router-outlet>
