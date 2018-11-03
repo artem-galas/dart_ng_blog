@@ -27,7 +27,16 @@ class PostIndexComponent implements OnInit {
   PostIndexComponent(this._postService);
 
   @override
-  void ngOnInit() async {
-    posts = await _postService.getPosts();
+  void ngOnInit() {
+    _postService.getPosts()
+      .listen(
+        (posts) => this.posts = posts,
+        onError: (error) {
+          print('Error ${error}');
+        },
+        onDone: () {
+          print('Done');
+        }
+    );
   }
 }

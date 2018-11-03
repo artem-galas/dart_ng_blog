@@ -1,11 +1,9 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:http/http.dart';
-import 'package:dart_jsona/dart_jsona.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:ng_blog/src/shared/models/post_model.dart';
 import 'package:ng_blog/src/shared/models/constatns.dart';
+import 'package:ng_blog/src/shared/framework/http/http_util.dart' as httpUtil;
 
 class PostService {
   static final _postUrl = 'posts';
@@ -13,26 +11,17 @@ class PostService {
 
   PostService(this._http);
 
-  Future<List<PostModel>> getPosts() async {
-    try {
-      final response = await _http.get('${apiUrl}/${_postUrl}');
-      final posts = (_extractResponse(response) as List)
-          .map((value) => PostModel.fromJson(value))
-          .toList();
+  Observable<List<PostModel>> getPosts() {
+    final response = _http.get('${apiUrl}/${_postUrl}');
 
-      return posts;
-    } catch(e) {
-      throw _handleError(e);
-    }
-  }
+    return Observable
+      .fromFuture(response)
+      .map((response) {
+        httpUtil.throwIfNoSuccess(response);
 
-  _extractResponse(Response response) {
-    Jsona jsona = new Jsona();
-
-    return jsona.deserialize(json.decode(response.body));
-  }
-
-  Exception _handleError(e) {
-    return Exception('Server error; cause: $e');
+        return (httpUtil.extractResponse(response) as List)
+            .map((value) => PostModel.fromJson(value))
+            .toList();
+      });
   }
 }
