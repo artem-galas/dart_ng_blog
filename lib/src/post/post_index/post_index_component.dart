@@ -1,7 +1,9 @@
 import 'package:angular/angular.dart';
 
-import 'package:angular_components/material_button/material_button.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:ng_blog/src/shared/models/post_model.dart';
+import 'package:ng_blog/src/shared/components/post/post_component.dart';
+
+import '../post_service.dart';
 
 @Component(
   selector: 'ng-blog-post-index',
@@ -11,10 +13,21 @@ import 'package:angular_components/material_icon/material_icon.dart';
   ],
   templateUrl: 'post_index_component.html',
   directives: [
-    MaterialButtonComponent,
-    MaterialIconComponent,
+    coreDirectives,
+    PostComponent
+  ],
+  providers: [
+    ClassProvider(PostService)
   ]
 )
-class PostIndexComponent {
+class PostIndexComponent implements OnInit {
+  final PostService _postService;
+  List<PostModel> posts;
 
+  PostIndexComponent(this._postService);
+
+  @override
+  void ngOnInit() async {
+    posts = await _postService.getPosts();
+  }
 }

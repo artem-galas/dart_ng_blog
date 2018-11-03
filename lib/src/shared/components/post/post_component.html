@@ -1,0 +1,22 @@
+<section>
+  <div class="mdc-card size">
+    <div class="card__media">
+      <img [src]="post.image">
+    </div>
+    <div class="card__primary">
+      <h2 class="card__title">{{ post.title }}</h2>
+      <h3 class="card__subtitle">by {{ post.author.name }}</h3>
+    </div>
+    <div class="card__secondary">
+      {{ post.body }}
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <material-button (click)="goToPost()">Read</material-button>
+      </div>
+      <div class="mdc-card__action-icons">
+        <material-menu [menu]="postMenu"></material-menu>
+      </div>
+    </div>
+  </div>
+</section>
