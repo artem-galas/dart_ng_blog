@@ -2,7 +2,7 @@ import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:ng_blog/src/shared/models/post_model.dart';
-import 'package:ng_blog/src/shared/models/constatns.dart';
+import 'package:ng_blog/src/shared/models/constants.dart';
 import 'package:ng_blog/src/shared/framework/http/http_util.dart' as httpUtil;
 
 class PostService {

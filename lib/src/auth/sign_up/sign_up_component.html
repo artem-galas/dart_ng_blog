@@ -4,18 +4,21 @@
             <h2 class="card__title">Sign Up</h2>
         </div>
         <div class="card__secondary">
-            <form id="signUpForm">
-                <material-input label="Email" type="email" class="full-width">
+            <form id="signUpForm" [ngFormModel]="signUpForm" (ngSubmit)="signUpUser()">
+                <material-input label="Email" type="email" class="full-width"
+                                ngControl="email" ngDefaultControl>
                 </material-input>
-                <material-input label="Name" type="text" class="full-width">
+                <material-input label="Name" type="text" class="full-width"
+                                ngControl="name" ngDefaultControl>
                 </material-input>
-                <material-input label="Password" type="password" class="full-width">
+                <material-input label="Password" type="password" class="full-width"
+                                ngControl="password" ngDefaultControl>
                 </material-input>
             </form>
         </div>
         <div class="mdc-card__actions">
             <div class="mdc-card__action-buttons">
-                <material-button type="submit" form="signUpForm">Sign Up</material-button>
+                <material-button (trigger)="signUpUser()">Sign Up</material-button>
                 <a>Already have an account?</a>
             </div>
         </div>
