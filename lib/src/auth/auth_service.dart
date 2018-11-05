@@ -1,49 +1,60 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:dart_jsona/dart_jsona.dart';
 
 import 'package:ng_blog/src/shared/models/constants.dart';
 import 'package:ng_blog/src/shared/models/user_model.dart';
+import 'package:ng_blog/src/shared/framework/http/http_client.dart';
 import 'package:ng_blog/src/shared/framework/http/http_util.dart' as httpUtil;
+
+import 'package:ng_blog/src/shared/services/token_service.dart';
 
 class AuthService {
   final authUrl = 'auth';
-  final Client _http;
+  final HttpClient _http;
+  final TokenService _tokenService;
 
-  AuthService(this._http);
+  AuthService(this._http, this._tokenService);
 
-  Observable<UserTokenModel> signUp(SignUpRequestModel data) {
+  Observable<UserModel> signUp(SignUpRequestModel data) {
     final response = _http
-      .post('$apiUrl/${authUrl}/sign_up', body: _decodeRequest(data),
-        headers: {
-        'Content-Type': 'application/json'
-      });
+      .post('$apiUrl/${authUrl}/sign_up', body: _decodeRequest(data));
 
     return Observable
       .fromFuture(response)
       .map((response) {
         httpUtil.throwIfNoSuccess(response);
 
-        return UserTokenModel.fromJson(httpUtil.extractResponse(response));
-      });
+        return response;
+      })
+      .map((response) {
+        UserTokenModel userTokenModel = UserTokenModel.fromJson(httpUtil.extractResponse(response));
+        TokenService.setToken(userTokenModel);
+
+        return userTokenModel;
+      })
+      .switchMap((token) => this._tokenService.loadUser());
   }
 
-  Observable<UserTokenModel> signIn(SignInRequestModel data) {
+  Observable<UserModel> signIn(SignInRequestModel data) {
     final response = _http
-        .post('$apiUrl/${authUrl}/sign_in', body: _decodeRequest(data),
-        headers: {
-          'Content-Type': 'application/json'
-        });
+      .post('$apiUrl/${authUrl}/sign_in', body: _decodeRequest(data));
 
     return Observable
       .fromFuture(response)
       .map((response) {
         httpUtil.throwIfNoSuccess(response);
 
-        return UserTokenModel.fromJson(httpUtil.extractResponse(response));
-      });
+        return response;
+      })
+      .map((response) {
+        UserTokenModel userTokenModel = UserTokenModel.fromJson(httpUtil.extractResponse(response));
+        TokenService.setToken(userTokenModel);
+
+        return userTokenModel;
+      })
+      .switchMap((token) => this._tokenService.loadUser());
   }
 
   dynamic _decodeRequest(dynamic body) {

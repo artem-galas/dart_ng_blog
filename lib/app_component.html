@@ -43,7 +43,7 @@
       <span class="material-header-title">Ng Blog</span>
       <div class="material-spacer"></div>
       <div class="profile pointer" [routerLink]="RoutePaths.profile.toUrl()">
-        <p>Hello user</p>
+        <p>Hello {{ currentUser?.name }}</p>
       </div>
       <nav class="material-navigation">
         <material-icon class="pointer" icon="exit_to_app"></material-icon>

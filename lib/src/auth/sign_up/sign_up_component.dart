@@ -53,7 +53,7 @@ class SignUpComponent implements OnInit {
       _authService
         .signUp(SignUpRequestModel.fromJson(signUpForm.value))
         .listen(
-          (UserTokenModel data) => print(data.toJson()),
+          (UserModel data) => print(data.toJson()),
           onError: (error) => print(error)
       );
     }

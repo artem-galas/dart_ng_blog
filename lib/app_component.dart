@@ -11,6 +11,8 @@ import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 
 import 'src/routes.dart';
+import 'src/shared/services/token_service.dart';
+import 'src/shared/models/user_model.dart';
 
 @Component(
   selector: 'ng-blog-app',
@@ -34,9 +36,20 @@ import 'src/routes.dart';
     RoutePaths
   ],
   providers: [
-    materialProviders
+    materialProviders,
+    ClassProvider(TokenService)
   ]
 )
-class AppComponent {
+class AppComponent implements OnInit {
+  UserModel currentUser;
+  final TokenService _tokenService;
 
+  AppComponent(this._tokenService);
+
+  @override
+  void ngOnInit() {
+    _tokenService
+      .currentUser$
+      .listen((user) => currentUser = user);
+  }
 }
