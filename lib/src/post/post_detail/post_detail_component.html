@@ -9,27 +9,22 @@
       </label>
     </div>
   </div>
-  <form>
+  <form [ngFormModel]="postForm" (ngSubmit)="savePost()">
     <div class="card__primary">
       <h2 class="card__title">
-        <material-input class="full-width"
-                        label="Title"
-                        ngDefaultControl>
+        <material-input class="full-width" label="Title" ngControl="title" ngDefaultControl>
         </material-input>
       </h2>
     </div>
     <div class="card__secondary">
-      <material-input class="full-width"
-                      multiline
-                      rows="10"
-                      type="text"
-                      label="Body"
-                      ngDefaultControl>
+      <material-input class="full-width" multiline
+                      rows="10" type="text" label="Body"
+                      ngControl="body" ngDefaultControl>
       </material-input>
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
-        <material-button>Save</material-button>
+        <material-button (trigger)="savePost()">Save</material-button>
       </div>
     </div>
   </form>
