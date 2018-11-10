@@ -33,9 +33,10 @@ import '../post_service.dart';
     ClassProvider(PostService)
   ]
 )
-class PostDetailComponent implements OnInit {
+class PostDetailComponent implements OnInit, OnActivate {
   PostModel post;
   ControlGroup postForm;
+  int postId;
   final PostService _postService;
   final Router _router;
 
@@ -48,8 +49,13 @@ class PostDetailComponent implements OnInit {
 
   void savePost() {
     if (postForm.valid) {
-      _postService.createPost(PostModel.fromJson(postForm.value))
-        .listen((post) => _router.navigate(RoutePaths.posts_index.toUrl()));
+      if (postId != null) {
+        _postService.updatePost(PostModel.fromJson(postForm.value), post.id)
+          .listen((post) => _router.navigate(RoutePaths.posts_index.toUrl()));
+      } else {
+        _postService.createPost(PostModel.fromJson(postForm.value))
+          .listen((post) => _router.navigate(RoutePaths.posts_index.toUrl()));
+      }
     }
   }
 
@@ -58,6 +64,23 @@ class PostDetailComponent implements OnInit {
       'title': ['', Validators.required],
       'body': ['', Validators.required],
     });
+  }
+
+  @override
+  void onActivate(_, RouterState current) {
+    postId = getId(current.parameters);
+
+    if (postId != null) {
+      _postService
+        .getPost(postId)
+        .listen((post) {
+          this.post = post;
+          postForm.updateValue({'title': post.title, 'body': post.body});
+      });
+    } else {
+      post = PostModel();
+      postForm.updateValue({'title': post.title, 'body': post.body});
+    }
   }
 
 }

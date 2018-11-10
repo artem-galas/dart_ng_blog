@@ -11,7 +11,7 @@ class PostModel {
   final String image;
   final String title;
   final UserModel author;
-  PostModel(this.id, this.body, this.image, this.title, this.author);
+  PostModel({this.id, this.body, this.image, this.title, this.author});
 
   factory PostModel.fromJson(Map<String, dynamic> json) => _$PostModelFromJson(json);
   Map<String, dynamic> toJson() => _$PostModelToJson(this);

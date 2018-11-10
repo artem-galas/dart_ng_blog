@@ -15,3 +15,8 @@ class RoutePaths {
 
   static final profile = RoutePath(path: 'profile');
 }
+
+int getId(Map<String, String> parameters) {
+  final id = parameters[idParam];
+  return id == null ? null : int.tryParse(id);
+}

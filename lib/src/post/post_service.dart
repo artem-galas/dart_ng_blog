@@ -40,6 +40,30 @@ class PostService {
     });
   }
 
+  Observable<PostModel> updatePost(PostModel data, String postId) {
+    final response = _http.put('${apiUrl}/posts/${postId}', body: _decodeRequest(data));
+
+    return Observable
+      .fromFuture(response)
+      .map((response) {
+        httpUtil.throwIfNoSuccess(response);
+
+        return PostModel.fromJson(httpUtil.extractResponse(response));
+    });
+  }
+
+  Observable<PostModel> getPost(int postId) {
+    final response = _http.get('$apiUrl/$_postUrl/$postId');
+
+    return new Observable
+      .fromFuture(response)
+      .map((response) {
+        httpUtil.throwIfNoSuccess(response);
+
+        return PostModel.fromJson(httpUtil.extractResponse(response));
+      });
+  }
+
   dynamic _decodeRequest(dynamic body) {
     Jsona jsona = new Jsona();
     body = body.toJson();
