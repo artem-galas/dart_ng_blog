@@ -1,12 +1,16 @@
+import 'dart:html';
 import 'dart:convert';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:dart_jsona/dart_jsona.dart';
+import 'package:http/http.dart';
 
 import 'package:ng_blog/src/shared/models/post_model.dart';
 import 'package:ng_blog/src/shared/models/constants.dart';
 import 'package:ng_blog/src/shared/framework/http/http_client.dart';
 import 'package:ng_blog/src/shared/framework/http/http_util.dart' as httpUtil;
+
+import 'package:ng_blog/src/shared/services/token_service.dart';
 
 class PostService {
   static final _postUrl = 'posts';
@@ -61,6 +65,31 @@ class PostService {
         httpUtil.throwIfNoSuccess(response);
 
         return PostModel.fromJson(httpUtil.extractResponse(response));
+      });
+  }
+
+  Observable<PostModel> addImageToPost(int postId, File image) {
+    FormData formData = FormData();
+    formData.appendBlob('image', image);
+
+    final request = HttpRequest
+      .request(
+        '${apiUrl}/posts/${postId}/image',
+        method: 'PUT',
+        sendData: formData,
+        requestHeaders: {
+          'Authorization': 'Bearer ${TokenService.getToken()}'
+        }
+      );
+
+    return Observable
+      .fromFuture(request)
+      .map((request) {
+        var resp = new Response(request.response, request.status);
+
+        httpUtil.throwIfNoSuccess(resp);
+
+        return PostModel.fromJson(httpUtil.extractResponse(resp));
       });
   }
 

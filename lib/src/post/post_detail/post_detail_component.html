@@ -1,7 +1,8 @@
 <div class="mdc-card size">
   <div class="card__media">
-    <img [src]="post?.image">
-    <input type="file" id="image" [hidden]="true">
+    <img *ngIf="post?.image != null && newImage == null" [src]="post?.image">
+    <img *ngIf="newImage != null" [src]="newImage">
+    <input type="file" id="image" [hidden]="true" (change)="loadImage($event)">
     <div class="upload_icon">
       <label for="image">
         Upload new image

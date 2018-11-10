@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -37,6 +39,8 @@ class PostDetailComponent implements OnInit, OnActivate {
   PostModel post;
   ControlGroup postForm;
   int postId;
+  String newImage;
+  File _image;
   final PostService _postService;
   final Router _router;
 
@@ -51,10 +55,20 @@ class PostDetailComponent implements OnInit, OnActivate {
     if (postForm.valid) {
       if (postId != null) {
         _postService.updatePost(PostModel.fromJson(postForm.value), post.id)
-          .listen((post) => _router.navigate(RoutePaths.posts_index.toUrl()));
+          .concatMap((post) {
+            if (_image != null) {
+              return _postService.addImageToPost(int.parse(post.id), _image);
+            }
+          })
+          .listen((_) => _router.navigate(RoutePaths.posts_index.toUrl()));
       } else {
         _postService.createPost(PostModel.fromJson(postForm.value))
-          .listen((post) => _router.navigate(RoutePaths.posts_index.toUrl()));
+          .concatMap((post) {
+            if (_image != null) {
+              return _postService.addImageToPost(int.parse(post.id), _image);
+            }
+          })
+          .listen((_) => _router.navigate(RoutePaths.posts_index.toUrl()));
       }
     }
   }
@@ -80,6 +94,19 @@ class PostDetailComponent implements OnInit, OnActivate {
     } else {
       post = PostModel();
       postForm.updateValue({'title': post.title, 'body': post.body});
+    }
+  }
+
+  void loadImage(Event event) {
+    final InputElement element = event.target;
+
+    if (element.files.length > 0) {
+      _image = element.files.first;
+
+      FileReader reader = FileReader();
+      reader.readAsDataUrl(_image);
+      reader.onLoad
+        .listen((e) => newImage = reader.result);
     }
   }
 
