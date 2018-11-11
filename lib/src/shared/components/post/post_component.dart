@@ -10,6 +10,7 @@ import 'package:angular_components/model/menu/menu.dart';
 import 'package:ng_blog/src/route_paths.dart';
 
 import '../../models/post_model.dart';
+import '../../directives/have_access_directive.dart';
 
 @Component(
   selector: 'ng-blog-post',
@@ -22,6 +23,7 @@ import '../../models/post_model.dart';
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialMenuComponent,
+    HaveAccessDirective
   ],
 )
 class PostComponent {

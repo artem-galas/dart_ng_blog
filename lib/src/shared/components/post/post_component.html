@@ -14,7 +14,7 @@
       <div class="mdc-card__action-buttons">
         <material-button (click)="goToPost()">Read</material-button>
       </div>
-      <div class="mdc-card__action-icons">
+      <div class="mdc-card__action-icons" *haveAccess="post.author.id">
         <material-menu [menu]="postMenu"></material-menu>
       </div>
     </div>
