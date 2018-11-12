@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
@@ -12,6 +13,7 @@ import 'package:angular_components/material_input/material_input_multiline.dart'
 
 import 'package:ng_blog/src/routes.dart';
 import 'package:ng_blog/src/shared/models/post_model.dart';
+import 'package:ng_blog/src/shared/services/token_service.dart';
 
 import '../post_service.dart';
 
@@ -35,7 +37,7 @@ import '../post_service.dart';
     ClassProvider(PostService)
   ]
 )
-class PostDetailComponent implements OnInit, OnActivate {
+class PostDetailComponent implements OnInit, OnActivate, CanActivate {
   PostModel post;
   ControlGroup postForm;
   int postId;
@@ -43,8 +45,9 @@ class PostDetailComponent implements OnInit, OnActivate {
   File _image;
   final PostService _postService;
   final Router _router;
+  final TokenService _tokenService;
 
-  PostDetailComponent(this._postService, this._router);
+  PostDetailComponent(this._postService, this._router, this._tokenService);
 
   @override
   void ngOnInit() {
@@ -108,6 +111,15 @@ class PostDetailComponent implements OnInit, OnActivate {
       reader.onLoad
         .listen((e) => newImage = reader.result);
     }
+  }
+
+  @override
+  Future<bool> canActivate(RouterState current, RouterState next) async {
+    if (!_tokenService.isLoggedIn()) {
+      _router.navigate(RoutePaths.auth_sign_in.toUrl());
+    }
+
+    return _tokenService.isLoggedIn();
   }
 
 }
