@@ -12,7 +12,7 @@ import 'main.template.dart' as self;
 @GenerateInjector([
   ClassProvider(Client, useClass: BrowserClient),
   ClassProvider(HttpClient),
-  routerProvidersHash, // You can use routerProviders in production
+  routerProviders, // You can use routerProviders in production
 ])
 final InjectorFactory injector = self.injector$Injector;
 
