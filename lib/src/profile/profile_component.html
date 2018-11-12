@@ -1,39 +1,21 @@
-<div class="mdc-card size">
+<div class="mdc-card size" *ngIf="user != null">
     <div class="card__media">
-        <img src="https://via.placeholder.com/150">
+        <img [src]="user.avatar">
     </div>
     <div class="card__primary">
         <h2 class="card__title">Profile</h2>
     </div>
     <div class="card__secondary">
         <label>Name:
-            <span>Artem</span>
+            <span>{{ user.name }}</span>
         </label>
         <label>Post count:
-            <span></span>
+            <span>{{ posts?.length }}</span>
         </label>
     </div>
 </div>
 
 <h3 class="text-center">My Post</h3>
 <section class="posts-wrapper">
-    <div class="mdc-card size">
-        <div class="card__media">
-            <img src="https://via.placeholder.com/350">
-        </div>
-        <div class="card__primary">
-            <h2 class="card__title">Post Title</h2>
-            <h3 class="card__subtitle">by someone</h3>
-        </div>
-        <div class="card__secondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="mdc-card__actions">
-            <div class="mdc-card__action-buttons">
-                <material-button>Read</material-button>
-            </div>
-            <div class="mdc-card__action-icons">
-            </div>
-        </div>
-    </div>
+    <ng-blog-post *ngFor="let post of posts" [post]="post"></ng-blog-post>
 </section>

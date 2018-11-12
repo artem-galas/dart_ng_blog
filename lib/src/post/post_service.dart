@@ -93,6 +93,20 @@ class PostService {
       });
   }
 
+  Observable<List<PostModel>> getMyPosts() {
+    final response = _http.get('${apiUrl}/my_${_postUrl}');
+
+    return Observable
+      .fromFuture(response)
+      .map((response) {
+        httpUtil.throwIfNoSuccess(response);
+
+        return (httpUtil.extractResponse(response) as List)
+          .map((value) => PostModel.fromJson(value))
+          .toList();
+      });
+  }
+
   dynamic _decodeRequest(dynamic body) {
     Jsona jsona = new Jsona();
     body = body.toJson();
