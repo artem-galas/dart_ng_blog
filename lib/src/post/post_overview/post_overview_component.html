@@ -1,22 +1,17 @@
-<div class="mdc-card size">
+<div class="mdc-card size" *ngIf="post != null">
     <div class="card__media">
-        <img src="https://via.placeholder.com/350">
+        <img [src]="post.image">
     </div>
     <div class="card__primary">
-        <h2 class="card__title">Post Title</h2>
-        <h3 class="card__subtitle">by someone</h3>
+        <h2 class="card__title">{{ post.title }}</h2>
+        <h3 class="card__subtitle">{{ post.author.name }}</h3>
     </div>
     <div class="card__secondary">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        {{ post.body }}
     </div>
     <div class="mdc-card__actions">
-        <div class="mdc-card__action-icons">
-            <material-button icon>
-                <material-icon icon="favorite_border"></material-icon>
-            </material-button>
-            <material-button icon>
-                <material-icon icon="more_vert"></material-icon>
-            </material-button>
+        <div class="mdc-card__action-icons" *haveAccess="post.author.id">
+            <material-menu [menu]="postMenu"></material-menu>
         </div>
     </div>
 </div>
