@@ -46,7 +46,7 @@
         <p>Hello {{ currentUser?.name }}</p>
       </div>
       <nav class="material-navigation">
-        <material-icon class="pointer" icon="exit_to_app"></material-icon>
+        <material-icon class="pointer" (click)="signOut()" icon="exit_to_app"></material-icon>
       </nav>
     </div>
   </header>

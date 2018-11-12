@@ -43,13 +43,19 @@ import 'src/shared/models/user_model.dart';
 class AppComponent implements OnInit {
   UserModel currentUser;
   final TokenService _tokenService;
+  final Router _router;
 
-  AppComponent(this._tokenService);
+  AppComponent(this._tokenService, this._router);
 
   @override
   void ngOnInit() {
     _tokenService
       .currentUser$
       .listen((user) => currentUser = user);
+  }
+
+  void signOut() {
+    _tokenService.removeToken();
+    _router.navigate(RoutePaths.auth_sign_in.toUrl());
   }
 }
